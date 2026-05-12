@@ -1,10 +1,22 @@
+import Link from 'next/link';
+
 export default function Scenarios() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Financial Scenarios</h1>
-          <p className="text-gray-600">Explore "what if" changes and see how they affect your future</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Financial Scenarios</h1>
+              <p className="text-gray-600">Explore "what if" changes and see how they affect your future</p>
+            </div>
+            <Link
+              href="/dashboard"
+              className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 text-sm"
+            >
+              ← Back to Dashboard
+            </Link>
+          </div>
         </div>
 
         {/* Scenario Builder */}

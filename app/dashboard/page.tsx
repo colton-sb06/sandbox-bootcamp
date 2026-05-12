@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
@@ -65,9 +67,9 @@ export default function Dashboard() {
         <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
           <h3 className="text-lg font-medium text-blue-900 mb-2">Ready to explore scenarios?</h3>
           <p className="text-blue-700 mb-4">See how different changes could affect your financial future</p>
-          <a href="/scenarios" className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 inline-block">
+          <Link href="/scenarios" className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 inline-block">
             Explore Scenarios →
-          </a>
+          </Link>
         </div>
       </div>
     </div>
