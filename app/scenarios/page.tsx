@@ -8,7 +8,7 @@ export default function Scenarios() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Financial Scenarios</h1>
-              <p className="text-gray-600">Explore "what if" changes and see how they affect your future</p>
+              <p className="text-gray-600">Explore &quot;what if&quot; changes and see how they affect your future</p>
             </div>
             <Link
               href="/dashboard"

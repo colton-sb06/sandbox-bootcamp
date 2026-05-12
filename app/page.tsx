@@ -7,10 +7,10 @@ export default function Home() {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            See How Today's Money Decisions Change Your Next 90 Days
+            See How Today&apos;s Money Decisions Change Your Next 90 Days
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Upload your financial statements and explore "what if" scenarios to understand how small changes
+            Upload your financial statements and explore &quot;what if&quot; scenarios to understand how small changes
             can dramatically impact your financial future.
           </p>
           <Link
