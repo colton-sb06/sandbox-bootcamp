@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import AccountCard from '@/components/AccountCard';
+import EmptyState from '@/components/EmptyState';
+import RecurringItemCard from '@/components/RecurringItemCard';
+import SummaryMetricCard from '@/components/SummaryMetricCard';
 import {
   mockAccounts,
   mockRecurringItems,
@@ -94,31 +97,42 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {mockAccounts.map((account) => (
-            <AccountCard key={account.id} account={account} />
-          ))}
-        </div>
+        {mockAccounts.length > 0 ? (
+          <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {mockAccounts.map((account) => (
+              <AccountCard key={account.id} account={account} />
+            ))}
+          </div>
+        ) : (
+          <div className="mb-8">
+            <EmptyState
+              title="No accounts yet"
+              description="Add a checking, savings, or credit card balance so the simulator has a starting point for its 90-day projection."
+              action={
+                <button className="rounded-md bg-emerald-300 px-4 py-2 font-semibold text-slate-950 transition hover:bg-emerald-200">
+                  Add Account
+                </button>
+              }
+            />
+          </div>
+        )}
 
         <div className="mb-8 grid gap-4 md:grid-cols-3">
-          <div className="rounded-lg border border-white/10 bg-slate-950/60 p-5">
-            <p className="text-sm text-slate-500">Monthly income</p>
-            <p className="mt-2 text-2xl font-bold text-sky-300">
-              {moneyFormatter.format(monthlyIncome)}
-            </p>
-          </div>
-          <div className="rounded-lg border border-white/10 bg-slate-950/60 p-5">
-            <p className="text-sm text-slate-500">Monthly outflow</p>
-            <p className="mt-2 text-2xl font-bold text-rose-300">
-              {moneyFormatter.format(monthlyOutflow)}
-            </p>
-          </div>
-          <div className="rounded-lg border border-white/10 bg-slate-950/60 p-5">
-            <p className="text-sm text-slate-500">Net worth</p>
-            <p className="mt-2 text-2xl font-bold text-emerald-300">
-              {moneyFormatter.format(netWorth)}
-            </p>
-          </div>
+          <SummaryMetricCard
+            label="Monthly income"
+            value={moneyFormatter.format(monthlyIncome)}
+            tone="sky"
+          />
+          <SummaryMetricCard
+            label="Monthly outflow"
+            value={moneyFormatter.format(monthlyOutflow)}
+            tone="rose"
+          />
+          <SummaryMetricCard
+            label="Net worth"
+            value={moneyFormatter.format(netWorth)}
+            tone="emerald"
+          />
         </div>
 
         <section className="mb-8">
@@ -139,30 +153,27 @@ export default function Dashboard() {
               Build a scenario
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {mockRecurringItems.map((item) => (
-              <article
-                key={item.id}
-                className="rounded-lg border border-white/10 bg-white/[0.04] p-4 transition hover:border-sky-300/40 hover:bg-white/[0.06]"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h3 className="font-medium text-white">{item.name}</h3>
-                    <p className="text-sm text-slate-500">{item.category}</p>
-                  </div>
-                  <span className="rounded-md border border-white/10 bg-slate-950/70 px-2 py-1 text-xs font-medium text-slate-300">
-                    {item.frequency}
-                  </span>
-                </div>
-                <p className="mt-4 text-lg font-semibold text-slate-100">
-                  {moneyFormatter.format(item.amount)}
-                </p>
-                <p className="text-sm capitalize text-slate-500">
-                  {item.type.replace('-', ' ')}
-                </p>
-              </article>
-            ))}
-          </div>
+          {mockRecurringItems.length > 0 ? (
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {mockRecurringItems.map((item) => (
+                <RecurringItemCard
+                  key={item.id}
+                  item={item}
+                  formattedAmount={moneyFormatter.format(item.amount)}
+                />
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              title="No recurring records found"
+              description="Add income, bills, savings transfers, or debt payments so the baseline forecast can show how balances change over time."
+              action={
+                <button className="rounded-md bg-emerald-300 px-4 py-2 font-semibold text-slate-950 transition hover:bg-emerald-200">
+                  Add Recurring Item
+                </button>
+              }
+            />
+          )}
         </section>
 
         <section className="rounded-lg border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20 sm:p-6">

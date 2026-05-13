@@ -1,14 +1,15 @@
 import Link from 'next/link';
+import EmptyState from '@/components/EmptyState';
 import { mockScenarios } from '@/lib/mock-finance-data';
 
-const scenarioSummaries = [
-  '+$900 savings change',
-  '+$450 fewer recurring costs',
-  '-$500 credit card balance',
-  '+$270 dining reduction',
-  '-$1,350 transportation cost',
-  '-$1,680 temporary income loss',
-];
+const scenarioImpactById: Record<string, string> = {
+  'save-300': '+$900 savings change',
+  'cancel-subscriptions': '+$450 fewer recurring costs',
+  'extra-card-payment': '-$500 credit card balance',
+  'cut-dining': '+$270 dining reduction',
+  'buy-car': '-$1,350 transportation cost',
+  'income-drop': '-$1,680 temporary income loss',
+};
 
 export default function Scenarios() {
   return (
@@ -83,41 +84,55 @@ export default function Scenarios() {
               Presets keep the MVP understandable while we build the real engine.
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {mockScenarios.map((scenario, index) => {
-              const isNegative = scenario.monthlyImpact < 0;
+          {mockScenarios.length > 0 ? (
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {mockScenarios.map((scenario) => {
+                const isNegative = scenario.monthlyImpact < 0;
 
-              return (
-                <article
-                  key={scenario.id}
-                  className="cursor-pointer rounded-lg border border-white/10 bg-white/[0.04] p-5 transition hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-white/[0.06]"
-                >
-                  <div className="mb-4 flex items-start justify-between gap-3">
-                    <h3 className="font-semibold text-white">{scenario.name}</h3>
-                    <span
-                      className={`rounded-md px-2 py-1 text-xs font-semibold ${
-                        isNegative
-                          ? 'bg-rose-300/10 text-rose-200'
-                          : 'bg-emerald-300/10 text-emerald-200'
+                return (
+                  <article
+                    key={scenario.id}
+                    className="cursor-pointer rounded-lg border border-white/10 bg-white/[0.04] p-5 transition hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-white/[0.06]"
+                  >
+                    <div className="mb-4 flex items-start justify-between gap-3">
+                      <h3 className="font-semibold text-white">
+                        {scenario.name}
+                      </h3>
+                      <span
+                        className={`rounded-md px-2 py-1 text-xs font-semibold ${
+                          isNegative
+                            ? 'bg-rose-300/10 text-rose-200'
+                            : 'bg-emerald-300/10 text-emerald-200'
+                        }`}
+                      >
+                        {isNegative ? 'Cost' : 'Lift'}
+                      </span>
+                    </div>
+                    <p className="text-sm leading-6 text-slate-400">
+                      {scenario.description}
+                    </p>
+                    <p
+                      className={`mt-4 text-sm font-semibold ${
+                        isNegative ? 'text-rose-300' : 'text-emerald-300'
                       }`}
                     >
-                      {isNegative ? 'Cost' : 'Lift'}
-                    </span>
-                  </div>
-                  <p className="text-sm leading-6 text-slate-400">
-                    {scenario.description}
-                  </p>
-                  <p
-                    className={`mt-4 text-sm font-semibold ${
-                      isNegative ? 'text-rose-300' : 'text-emerald-300'
-                    }`}
-                  >
-                    {scenarioSummaries[index]}
-                  </p>
-                </article>
-              );
-            })}
-          </div>
+                      {scenarioImpactById[scenario.id]}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+          ) : (
+            <EmptyState
+              title="No scenario levers yet"
+              description="Create a scenario like saving more, reducing a recurring cost, or making an extra debt payment to compare it against the baseline forecast."
+              action={
+                <button className="rounded-md bg-emerald-300 px-4 py-2 font-semibold text-slate-950 transition hover:bg-emerald-200">
+                  Create First Scenario
+                </button>
+              }
+            />
+          )}
         </section>
 
         <section className="rounded-lg border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20 sm:p-6">
