@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import MoneyMapLogo from './MoneyMapLogo';
 
 export default function Navigation() {
   return (
@@ -6,8 +7,9 @@ export default function Navigation() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-white">
-              Finance Simulator
+            <Link href="/" className="flex items-center gap-2 text-xl font-bold text-white">
+              <MoneyMapLogo />
+              MoneyMap
             </Link>
           </div>
 

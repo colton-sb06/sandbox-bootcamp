@@ -24,3 +24,77 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.forecast-line {
+  stroke-dasharray: 720;
+  stroke-dashoffset: 720;
+  filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.24));
+  animation-duration: 8.2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.forecast-line-primary {
+  animation-name: draw-scenario-line;
+}
+
+.forecast-line-secondary {
+  animation-name: draw-baseline-line;
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.18));
+  opacity: 0.78;
+}
+
+@keyframes draw-baseline-line {
+  0% {
+    stroke-dashoffset: 720;
+    opacity: 0.28;
+  }
+
+  38% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  86% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: -720;
+    opacity: 0.18;
+  }
+}
+
+@keyframes draw-scenario-line {
+  0%,
+  18% {
+    stroke-dashoffset: 720;
+    opacity: 0.18;
+  }
+
+  56% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  86% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: -720;
+    opacity: 0.18;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forecast-line {
+    animation: none;
+  }
+
+  .forecast-line {
+    stroke-dashoffset: 0;
+  }
+}

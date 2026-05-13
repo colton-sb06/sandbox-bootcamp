@@ -42,10 +42,10 @@ export default function Home() {
       <section className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div>
           <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-emerald-300">
-            Personal finance scenario simulator
+            MoneyMap scenario simulator
           </p>
           <h1 className="max-w-3xl text-4xl font-bold text-white sm:text-6xl">
-            Look ahead, then pull the levers.
+            MoneyMap your next move.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-400">
             Build a 90-day forecast from your balances and recurring money
@@ -80,7 +80,7 @@ export default function Home() {
               90 days
             </span>
           </div>
-          <div className="relative h-56 rounded-lg border border-slate-800 bg-slate-950/70 p-4">
+          <div className="relative h-56 overflow-hidden rounded-lg border border-slate-800 bg-slate-950/70 p-4">
             <div className="absolute inset-x-4 top-12 border-t border-white/10" />
             <div className="absolute inset-x-4 top-24 border-t border-white/10" />
             <div className="absolute inset-x-4 top-36 border-t border-white/10" />
@@ -91,21 +91,35 @@ export default function Home() {
               aria-label="Net worth forecast line chart"
             >
               <path
-                d="M8 142 C96 130 148 124 210 106 C286 82 332 94 394 64 C446 40 482 34 512 24"
+                d="M8 152 L32 150 L56 148 L80 145 L104 141 L128 143 L152 138 L176 135 L200 130 L224 132 L248 126 L272 121 L296 116 L320 118 L344 111 L368 108 L392 101 L416 96 L440 98 L464 90 L488 82 L512 76"
                 fill="none"
                 stroke="#34d399"
                 strokeLinecap="round"
+                strokeLinejoin="round"
                 strokeWidth="5"
+                className="forecast-line forecast-line-primary"
               />
               <path
-                d="M8 152 C96 140 148 134 210 120 C286 104 332 108 394 88 C446 70 482 64 512 52"
+                d="M8 152 L32 151 L56 149 L80 148 L104 145 L128 146 L152 143 L176 141 L200 138 L224 139 L248 135 L272 132 L296 128 L320 130 L344 126 L368 123 L392 119 L416 116 L440 118 L464 113 L488 108 L512 104"
                 fill="none"
                 stroke="#38bdf8"
                 strokeDasharray="9 9"
                 strokeLinecap="round"
+                strokeLinejoin="round"
                 strokeWidth="4"
+                className="forecast-line forecast-line-secondary"
               />
             </svg>
+          </div>
+          <div className="mt-4 flex flex-col gap-2 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-sky-300" />
+              No-change forecast
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_16px_rgba(52,211,153,0.9)]" />
+              Scenario-based future
+            </div>
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-3">
             {previewMetrics.map((metric) => (
