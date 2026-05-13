@@ -1,31 +1,56 @@
 import Link from 'next/link';
+import { mockScenarios } from '@/lib/mock-finance-data';
+
+const scenarioSummaries = [
+  '+$900 savings change',
+  '+$450 fewer recurring costs',
+  '-$500 credit card balance',
+  '+$270 dining reduction',
+  '-$1,350 transportation cost',
+  '-$1,680 temporary income loss',
+];
 
 export default function Scenarios() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Financial Scenarios</h1>
-              <p className="text-gray-600">Explore &quot;what if&quot; changes and see how they affect your future</p>
-            </div>
-            <Link
-              href="/dashboard"
-              className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 text-sm"
-            >
-              ← Back to Dashboard
-            </Link>
+    <div className="min-h-screen bg-[#07110f] text-slate-100">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:py-10">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-emerald-300">
+              Scenario levers
+            </p>
+            <h1 className="text-4xl font-bold text-white sm:text-5xl">
+              Change an assumption. Compare the future.
+            </h1>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-400">
+              Pick a preset or create a simple change, then compare the baseline
+              forecast against a possible path for net worth and account balances.
+            </p>
           </div>
+          <Link
+            href="/dashboard"
+            className="w-fit rounded-md border border-white/10 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-sky-300/50 hover:bg-white/[0.04]"
+          >
+            Back to Dashboard
+          </Link>
         </div>
 
-        {/* Scenario Builder */}
-        <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Create a New Scenario</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section className="mb-8 rounded-lg border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20 sm:p-6">
+          <div className="mb-5">
+            <h2 className="text-xl font-semibold text-white">
+              Create a New Scenario
+            </h2>
+            <p className="mt-1 text-sm text-slate-400">
+              This form is still static, but it shows the inputs the scenario
+              engine will eventually use.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Scenario Type</label>
-              <select className="w-full border border-gray-300 rounded-md px-3 py-2">
+              <label className="mb-2 block text-sm font-medium text-slate-300">
+                Scenario Type
+              </label>
+              <select className="w-full rounded-md border border-white/10 bg-slate-950/70 px-3 py-2 text-slate-100 outline-none transition focus:border-emerald-300/70">
                 <option>Save more money</option>
                 <option>Reduce expenses</option>
                 <option>Increase income</option>
@@ -34,64 +59,116 @@ export default function Scenarios() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+              <label className="mb-2 block text-sm font-medium text-slate-300">
+                Monthly Amount
+              </label>
               <input
                 type="number"
                 placeholder="300"
-                className="w-full border border-gray-300 rounded-md px-3 py-2"
+                className="w-full rounded-md border border-white/10 bg-slate-950/70 px-3 py-2 text-slate-100 outline-none transition placeholder:text-slate-600 focus:border-emerald-300/70"
               />
             </div>
           </div>
-          <button className="mt-4 bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700">
+          <button className="mt-5 rounded-md bg-emerald-300 px-6 py-2 font-semibold text-slate-950 transition hover:bg-emerald-200">
             Create Scenario
           </button>
-        </div>
+        </section>
 
-        {/* Preset Scenarios */}
-        <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Quick Scenarios</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 cursor-pointer">
-              <h3 className="font-medium text-gray-900 mb-2">Save $300/month</h3>
-              <p className="text-sm text-gray-600 mb-3">Add automatic savings transfer</p>
-              <div className="text-green-600 font-medium">+$2,100 in savings</div>
+        <section className="mb-8">
+          <div className="mb-4">
+            <h2 className="text-xl font-semibold text-white">
+              Quick Scenarios
+            </h2>
+            <p className="mt-1 text-sm text-slate-400">
+              Presets keep the MVP understandable while we build the real engine.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {mockScenarios.map((scenario, index) => {
+              const isNegative = scenario.monthlyImpact < 0;
+
+              return (
+                <article
+                  key={scenario.id}
+                  className="cursor-pointer rounded-lg border border-white/10 bg-white/[0.04] p-5 transition hover:-translate-y-0.5 hover:border-emerald-300/40 hover:bg-white/[0.06]"
+                >
+                  <div className="mb-4 flex items-start justify-between gap-3">
+                    <h3 className="font-semibold text-white">{scenario.name}</h3>
+                    <span
+                      className={`rounded-md px-2 py-1 text-xs font-semibold ${
+                        isNegative
+                          ? 'bg-rose-300/10 text-rose-200'
+                          : 'bg-emerald-300/10 text-emerald-200'
+                      }`}
+                    >
+                      {isNegative ? 'Cost' : 'Lift'}
+                    </span>
+                  </div>
+                  <p className="text-sm leading-6 text-slate-400">
+                    {scenario.description}
+                  </p>
+                  <p
+                    className={`mt-4 text-sm font-semibold ${
+                      isNegative ? 'text-rose-300' : 'text-emerald-300'
+                    }`}
+                  >
+                    {scenarioSummaries[index]}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="rounded-lg border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20 sm:p-6">
+          <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-xl font-semibold text-white">
+                Baseline vs. Scenario
+              </h2>
+              <p className="mt-1 text-sm text-slate-400">
+                Placeholder comparison for future net worth over 30, 60, and 90
+                days.
+              </p>
             </div>
-            <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 cursor-pointer">
-              <h3 className="font-medium text-gray-900 mb-2">Cancel subscriptions</h3>
-              <p className="text-sm text-gray-600 mb-3">Remove Netflix, Spotify, gym</p>
-              <div className="text-green-600 font-medium">+$180/month surplus</div>
-            </div>
-            <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 cursor-pointer">
-              <h3 className="font-medium text-gray-900 mb-2">Pay $500 extra to credit card</h3>
-              <p className="text-sm text-gray-600 mb-3">Accelerate debt payoff</p>
-              <div className="text-green-600 font-medium">-$500 debt in 90 days</div>
-            </div>
-            <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 cursor-pointer">
-              <h3 className="font-medium text-gray-900 mb-2">Cut dining out by 30%</h3>
-              <p className="text-sm text-gray-600 mb-3">Reduce restaurant spending</p>
-              <div className="text-green-600 font-medium">+$90/month surplus</div>
-            </div>
-            <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 cursor-pointer">
-              <h3 className="font-medium text-gray-900 mb-2">Buy a car ($450/month)</h3>
-              <p className="text-sm text-gray-600 mb-3">Add car payment and costs</p>
-              <div className="text-red-600 font-medium">-$450/month deficit</div>
-            </div>
-            <div className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 cursor-pointer">
-              <h3 className="font-medium text-gray-900 mb-2">Income drops 20%</h3>
-              <p className="text-sm text-gray-600 mb-3">Temporary income reduction</p>
-              <div className="text-red-600 font-medium">-$840/month impact</div>
+            <span className="w-fit rounded-md bg-sky-300/10 px-3 py-1 text-xs font-semibold text-sky-200">
+              Comparison view
+            </span>
+          </div>
+          <div className="relative h-64 rounded-lg border border-slate-800 bg-slate-950/70 p-6">
+            <div className="absolute inset-x-6 top-12 border-t border-white/10" />
+            <div className="absolute inset-x-6 top-28 border-t border-white/10" />
+            <div className="absolute inset-x-6 top-44 border-t border-white/10" />
+            <svg
+              className="absolute inset-6 h-[calc(100%-3rem)] w-[calc(100%-3rem)]"
+              viewBox="0 0 640 220"
+              role="img"
+              aria-label="Baseline and scenario net worth comparison chart"
+            >
+              <path
+                d="M24 178 C118 160 170 154 240 134 C318 114 368 122 438 96 C514 70 566 78 616 58"
+                fill="none"
+                stroke="#38bdf8"
+                strokeDasharray="10 10"
+                strokeLinecap="round"
+                strokeWidth="4"
+              />
+              <path
+                d="M24 168 C118 144 170 134 240 106 C318 74 368 88 438 58 C514 30 566 34 616 18"
+                fill="none"
+                stroke="#34d399"
+                strokeLinecap="round"
+                strokeWidth="5"
+              />
+            </svg>
+            <div className="absolute bottom-4 left-6 right-6 grid grid-cols-4 text-xs font-medium text-slate-500">
+              <span>Today</span>
+              <span className="text-center">30 days</span>
+              <span className="text-center">60 days</span>
+              <span className="text-right">90 days</span>
             </div>
           </div>
-        </div>
-
-        {/* Comparison View */}
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-4">Scenario Comparison</h2>
-          <div className="bg-gray-100 rounded-lg p-8 text-center">
-            <p className="text-gray-600">Select scenarios above to compare them side-by-side</p>
-            <p className="text-sm text-gray-500 mt-2">Charts will show baseline vs. scenario projections</p>
-          </div>
-        </div>
+        </section>
       </div>
     </div>
   );
