@@ -21,17 +21,20 @@ const previewMetrics = [
 const scenarioExamples = [
   {
     title: 'Save $300 more per month',
-    description: 'See how a higher transfer changes savings and net worth.',
+    description:
+      'See how a higher monthly transfer could grow your savings over 90 days.',
     impact: '+$900 projected net worth',
   },
   {
     title: 'Pay extra toward credit card debt',
-    description: 'Compare lower debt against the cash needed today.',
+    description:
+      'See how an extra payment lowers debt while affecting your cash balance.',
     impact: '-$500 debt balance',
   },
   {
     title: 'Income drops temporarily',
-    description: 'Stress-test the next few months before it happens.',
+    description:
+      'Stress-test whether your cash can handle a short-term income dip.',
     impact: '-$1,680 projected income',
   },
 ];
@@ -42,28 +45,28 @@ export default function Home() {
       <section className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div>
           <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-emerald-300">
-            MoneyMap scenario simulator
+            Personal finance scenario simulator
           </p>
           <h1 className="max-w-3xl text-4xl font-bold text-white sm:text-6xl">
-            MoneyMap your next move.
+            Test money decisions before they hit your bank account.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-400">
-            Build a 90-day forecast from your balances and recurring money
-            movement, then compare how decisions could change account balances,
-            debt, and net worth.
+            Upload your financial data or enter your balances manually. MoneyMap
+            builds a 90-day forecast, then lets you compare &quot;what if&quot;
+            scenarios like saving more, cutting spending, or paying down debt.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/dashboard"
               className="rounded-md bg-emerald-300 px-6 py-3 text-center font-semibold text-slate-950 transition hover:bg-emerald-200"
             >
-              View Dashboard
+              Start your forecast
             </Link>
             <Link
               href="/scenarios"
               className="rounded-md border border-white/10 px-6 py-3 text-center font-semibold text-slate-200 transition hover:border-sky-300/50 hover:bg-white/[0.04]"
             >
-              Try Scenarios
+              Explore scenarios
             </Link>
           </div>
         </div>
@@ -118,7 +121,7 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_16px_rgba(52,211,153,0.9)]" />
-              Scenario-based future
+              With your changes
             </div>
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-3">
@@ -139,10 +142,11 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 pb-14">
         <div className="mb-4">
           <h2 className="text-2xl font-semibold text-white">
-            Scenario levers
+            Test everyday money decisions
           </h2>
           <p className="mt-1 text-sm text-slate-400">
-            Start with simple changes that clearly affect future balances.
+            Choose a common &quot;what if&quot; and see how it changes your cash,
+            debt, and net worth over the next 90 days.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">

@@ -40,7 +40,7 @@ export default function RootLayout({
               <MoneyMapLogo size="sm" />
               MoneyMap
             </div>
-            <p>Forecast your path, then test the levers.</p>
+            <p>Forecast your path, then test your next move.</p>
           </div>
         </footer>
       </body>
